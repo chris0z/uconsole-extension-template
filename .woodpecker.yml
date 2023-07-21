@@ -1,0 +1,30 @@
+steps:
+  generate_artifacts:
+    image: ubuntu:latest
+    when:
+      event: 
+        - push
+        - tag
+    commands:
+      - apt-get update
+      - DEBIAN_FRONTEND=noninteractive apt-get install -qq -y software-properties-common nodejs git zip
+      - add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+      - apt-get update
+      - DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -qq -y kicad
+      - mkdir artifacts
+      - cd artifacts
+      - kicad-cli sch export pdf ../pcb/uconsole-ext-usb-hub.kicad_sch
+
+  publish_release:
+    image: woodpeckerci/plugin-gitea-release
+    settings:
+      api_key: 
+        from_secret: api_token
+      base_url: https://codeberg.org
+      files:
+        - "artifacts/*"
+      target: master
+      checksum: md5
+    when:
+      event: tag
+    secrets: [ api_token ]
