@@ -14,6 +14,18 @@ steps:
       - mkdir artifacts
       - cd artifacts
       - kicad-cli sch export pdf ../pcb/uconsole-ext-usb-hub.kicad_sch
+      - kicad-cli pcb export gerber --layers "F.Cu" --output uconsole-ext-usb-hub-F_Cu.gtl ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "B.Cu" --output uconsole-ext-usb-hub-B_Cu.gbl ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "F.Paste" --output uconsole-ext-usb-hub-F_Paste.gtp ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "B.Paste" --output uconsole-ext-usb-hub-B_Paste.gbp ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "F.Silkscreen" --output uconsole-ext-usb-hub-F_Silkscreen.gto ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "B.Silkscreen" --output uconsole-ext-usb-hub-B.Silscreen.gbo ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "F.Mask" --output uconsole-ext-usb-hub-F_Mask.gts ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "B.Mask" --output uconsole-ext-usb-hub-B_Mask.gbs ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export gerber --layers "Edge.Cuts" --output uconsole-ext-usb-hub-Edge_Cuts.gm1 ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - kicad-cli pcb export drill --excellon-separate-th ../pcb/uconsole-ext-usb-hub.kicad_pcb
+      - zip uconsole-ext-usb-hub-gerber.zip *.g* *.drl
+      - rm *.g* *.drl
 
   publish_release:
     image: woodpeckerci/plugin-gitea-release

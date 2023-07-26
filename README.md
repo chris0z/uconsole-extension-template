@@ -7,3 +7,8 @@ This extension board adds 4 additional USB ports to the [uConsole](https://www.c
 ## Schematic
 
 [![status-badge](img/schematic_low_res.png)](https://codeberg.org/argrento/uconsole-ext-usb-hub/releases)
+
+## PCB
+
+[![status-badge](img/pcb_top.png)](https://codeberg.org/argrento/uconsole-ext-usb-hub/releases)
+[![status-badge](img/pcb_bottom.png)](https://codeberg.org/argrento/uconsole-ext-usb-hub/releases)
